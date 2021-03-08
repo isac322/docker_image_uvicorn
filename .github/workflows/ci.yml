@@ -24,6 +24,9 @@ jobs:
     needs: uvicorn_version
     env:
       PLATFORMS: linux/amd64,linux/arm64/v8,linux/386,linux/arm/v7
+      LATEST_PYVER: 3.9
+      BASE_EXT_TYPE: essential
+      BASE_PYIMG_TYPE: alpine
     strategy:
       matrix:
         python_ver: [3.6, 3.7, 3.8, 3.9]
@@ -31,15 +34,50 @@ jobs:
         extra_type: [performance, essential, standard]
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/github-script@v3
+        id: my-script
+        with:
+          result-encoding: string
+          # language=JavaScript
+          script: |
+            const base_elems = [
+                'py${{ env.LATEST_PYVER }}',
+                '${{ env.BASE_PYIMG_TYPE }}',
+                '${{ needs.uvicorn_version.outputs.version }}',
+                '${{ env.BASE_EXT_TYPE }}'
+            ];
+
+            const orig = new Set(['py${{ matrix.python_ver }}', '${{ matrix.python_img_type }}', '${{ needs.uvicorn_version.outputs.version }}', '${{ matrix.extra_type }}']);
+            const tags = new Set();
+
+            function collectTags(tmp) {
+                if (tmp.size === 0) {
+                    tags.add('latest');
+                    return;
+                }
+                const tag = Array.from(tmp).join('-');
+                if (tags.has(tag)) return;
+                tags.add(tag);
+
+                for (const e of base_elems) {
+                    if (tmp.has(e)) {
+                        const s = new Set(tmp);
+                        s.delete(e);
+                        collectTags(s);
+                    }
+                }
+            }
+
+            collectTags(orig);
+            return Array.from(tags).join('\n')
+
       - name: Docker meta
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/uvicorn
           tag-custom: |
-            py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ needs.uvicorn_version.outputs.version }}-${{ matrix.extra_type }}
-            py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ matrix.extra_type }}
-            ${{ fromJSON('["", "latest\n"]')[matrix.python_ver == '3.9' && matrix.python_img_type == 'alpine' && matrix.extra_type == 'essential'] }}
+            ${{ steps.my-script.outputs.result }}
           tag-custom-only: true
           label-custom: |
             org.opencontainers.image.title=uvicorn
