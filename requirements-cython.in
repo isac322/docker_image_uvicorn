@@ -1,0 +1,4 @@
+-r requirements-essential.in
+
+uvloop==0.15.2
+httptools==0.1.1
