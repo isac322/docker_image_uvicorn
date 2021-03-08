@@ -7,8 +7,21 @@ on:
   pull_request:
 
 jobs:
+  uvicorn_version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.uvicorn_version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get uvicorn version
+        id: uvicorn_version
+        run: |
+          VERSION=$(python -c "from pkg_resources import parse_requirements; print(next(filter(lambda r: r.name == 'uvicorn', parse_requirements(open('requirements-${{ matrix.extra_type }}.in').read()))).specs[0][1])")
+          echo $VERSION
+          echo "::set-output name=version::${VERSION}"
   docker:
     runs-on: ubuntu-latest
+    needs: fetch_uvicorn_version
     env:
       PLATFORMS: linux/amd64,linux/arm64/v8,linux/386,linux/arm/v7
     strategy:
@@ -18,19 +31,13 @@ jobs:
         extra_type: [cython, essential, standard]
     steps:
       - uses: actions/checkout@v2
-      - name: Get uvicorn version
-        id: uvicorn_version
-        run: |
-          VERSION=$(python -c "from pkg_resources import parse_requirements; print(next(filter(lambda r: r.name == 'uvicorn', parse_requirements(open('requirements-${{ matrix.extra_type }}.in').read()))).specs[0][1])")
-          echo $VERSION
-          echo "::set-output name=version::${VERSION}"
       - name: Docker meta
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v1
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/uvicorn
           tag-custom: |
-            py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ steps.uvicorn_version.version }}-${{ matrix.extra_type }}
+            py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ needs.uvicorn_version.outputs.version }}-${{ matrix.extra_type }}
             py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ matrix.extra_type }}
           tag-latest: ${{ matrix.python_ver == '3.9' && matrix.python_img_type == 'alpine' && matrix.extra_type == 'essential' }}
       - name: Set up QEMU
