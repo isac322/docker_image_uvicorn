@@ -11,4 +11,5 @@ FROM python:${PYTHON_VER}-${PYTHON_IMG_TYPE}
 COPY --from=builder /tmp/wheels/* /tmp/wheels/
 RUN pip install /tmp/wheels/*.whl
 
+WORKDIR /app
 ENTRYPOINT /usr/local/bin/uvicorn
