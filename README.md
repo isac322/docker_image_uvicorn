@@ -6,7 +6,7 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/uvicorn?logo=python&style=flat-square)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/isac322/docker_image_uvicorn/master?logo=github&style=flat-square)
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/isac322/docker_image_uvicorn/ci/master?logo=github&style=flat-square)
-![Dependabpt Status](https://flat.badgen.net/github/dependabot/isac322/docker_image_uvicorn?logo=github)
+![Dependabpt Status](https://flat.badgen.net/github/dependabot/isac322/docker_image_uvicorn?icon=github)
 
 Supported platform: `linux/amd64`, `linux/arm64/v8`, `linux/386`, `linux/arm/v7`
 
