@@ -39,7 +39,11 @@ jobs:
           tag-custom: |
             py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ needs.uvicorn_version.outputs.version }}-${{ matrix.extra_type }}
             py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ matrix.extra_type }}
-          tag-latest: ${{ matrix.python_ver == '3.9' && matrix.python_img_type == 'alpine' && matrix.extra_type == 'essential' }}
+            ${{ fromJSON('["latest\n", ""]')[matrix.python_ver == '3.9' && matrix.python_img_type == 'alpine' && matrix.extra_type == 'essential'] }}
+          tag-custom-only: true
+          label-custom: |
+            org.opencontainers.image.title=uvicorn
+            org.opencontainers.image.version=${{ needs.uvicorn_version.outputs.version }}
       - name: Set up QEMU
         id: qemu
         uses: docker/setup-qemu-action@v1
