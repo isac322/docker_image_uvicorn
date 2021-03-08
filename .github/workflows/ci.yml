@@ -28,7 +28,7 @@ jobs:
       matrix:
         python_ver: [3.6, 3.7, 3.8, 3.9]
         python_img_type: [alpine, slim]
-        extra_type: [cython, essential, standard]
+        extra_type: [performance, essential, standard]
     steps:
       - uses: actions/checkout@v2
       - name: Docker meta
