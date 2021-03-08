@@ -21,7 +21,7 @@ jobs:
       - name: Get uvicorn version
         id: uvicorn_version
         run: |
-          VERSION=$(python -c "from pkg_resources import parse_requirements; print(next(filter(lambda r: r.name == 'uvicorn', parse_requirements(open('requirements-${{ matrix.extra_type }}.txt').read()))).specs[0][1])")
+          VERSION=$(python -c "from pkg_resources import parse_requirements; print(next(filter(lambda r: r.name == 'uvicorn', parse_requirements(open('requirements-${{ matrix.extra_type }}.in').read()))).specs[0][1])")
           echo $VERSION
           echo "::set-output name=version::${VERSION}"
       - name: Docker meta
