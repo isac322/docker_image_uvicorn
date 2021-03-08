@@ -1,5 +1,11 @@
 # Docker image preinstalled the Python package `uvicorn`
 
+![](https://flat.badgen.net/docker/pulls/isac322/uvicorn?icon=docker&label=pulls)
+![](https://flat.badgen.net/docker/size/isac322/uvicorn?icon=docker&label=size)
+![](https://flat.badgen.net/pypi/v/uvicorn?icon=pypi)
+![](https://flat.badgen.net/github/dependabot/isac322/docker_image_uvicorn?icon=github)
+![](https://flat.badgen.net/github/status/isac322/docker_image_uvicorn?icon=github)
+
 Supported platform: `linux/amd64`, `linux/arm64/v8`, `linux/386`, `linux/arm/v7`
 
 ## Tag format
