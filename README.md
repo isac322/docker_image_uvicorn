@@ -1,5 +1,7 @@
 # Docker image preinstalled the Python package `uvicorn`
 
+Supported platform: `linux/amd64`, `linux/arm64/v8`, `linux/386`, `linux/arm/v7`
+
 ## Tag format
 
 `<Python Version>-<Python Image type>-<uvicorn version>-<Extra option for uvicorn package>`
@@ -26,3 +28,13 @@
 - `standard` == `<latest python version>-alpine` == `<latest python version>-alpine-<latest uvicorn version>-standard`
 - `py3.8` == `py3.8-alpine` == `py3.8-essential` == `py3.8-alpine-essential` == `py3.8-alpine-<latest uvicorn version>-essential`
 - ...
+
+## Command
+
+Entrypoint of image is `uvicorn`.
+
+So `docker run -ti isac322/uvicorn main:app` will execute `uvicorn main:app` internally.
+
+## Working directory
+
+`/app`
