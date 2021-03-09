@@ -13,4 +13,4 @@ RUN pip install /tmp/wheels/*.whl
 
 MAINTAINER 'Byeonghoon Isac Yoo <bh322yoo@gmail.com>'
 WORKDIR /app
-ENTRYPOINT /usr/local/bin/uvicorn
+ENTRYPOINT ["/usr/local/bin/uvicorn"]
