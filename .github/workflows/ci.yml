@@ -76,6 +76,8 @@ jobs:
         uses: crazy-max/ghaction-docker-meta@v2.2.1
         with:
           images: ${{ secrets.DOCKERHUB_USERNAME }}/uvicorn
+          flavor: |
+            latest=false
           tags: |
             ${{ steps.my-script.outputs.result }}
           labels: |
