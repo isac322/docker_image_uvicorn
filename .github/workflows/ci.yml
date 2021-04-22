@@ -34,7 +34,7 @@ jobs:
         extra_type: [performance, essential, standard]
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/github-script@v3
+      - uses: actions/github-script@v4.0.1
         id: my-script
         with:
           result-encoding: string
