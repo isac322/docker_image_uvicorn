@@ -112,7 +112,7 @@ jobs:
           cache-to: type=inline
       - name: Update repo description
         if: github.event_name != 'pull_request'
-        uses: peter-evans/dockerhub-description@v2
+        uses: peter-evans/dockerhub-description@v2.4.2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
