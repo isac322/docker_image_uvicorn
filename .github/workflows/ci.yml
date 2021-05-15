@@ -27,6 +27,7 @@ jobs:
       LATEST_PYVER: 3.9
       BASE_EXT_TYPE: essential
       BASE_PYIMG_TYPE: alpine
+      DOCKERHUB_USERNAME: isac322
     strategy:
       matrix:
         python_ver: [3.6, 3.7, 3.8, 3.9]
@@ -75,7 +76,7 @@ jobs:
         id: docker_meta
         uses: crazy-max/ghaction-docker-meta@v2.4.0
         with:
-          images: ${{ secrets.DOCKERHUB_USERNAME }}/uvicorn
+          images: ${{ env.DOCKERHUB_USERNAME }}/uvicorn
           flavor: |
             latest=false
           tags: |
@@ -94,7 +95,7 @@ jobs:
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v1
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ env.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
         id: docker_build
@@ -108,12 +109,12 @@ jobs:
           platforms: ${{ env.PLATFORMS }}
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/uvicorn:py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ matrix.extra_type }}
+          cache-from: type=registry,ref=${{ env.DOCKERHUB_USERNAME }}/uvicorn:py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ matrix.extra_type }}
           cache-to: type=inline
       - name: Update repo description
         if: github.event_name != 'pull_request'
         uses: peter-evans/dockerhub-description@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          username: ${{ env.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-          repository: ${{ secrets.DOCKERHUB_USERNAME }}/uvicorn
+          repository: ${{ env.DOCKERHUB_USERNAME }}/uvicorn
