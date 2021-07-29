@@ -9,7 +9,7 @@ ARG EXT_TYPE=essential
 COPY requirements-${EXT_TYPE}.in /tmp/requirements.txt
 RUN if test "${PYTHON_IMG_TYPE}" = 'alpine' && test "${EXT_TYPE}" != 'essential'; then \
     apk add --update gcc musl-dev make; \
-    elif test "${PYTHON_IMG_TYPE}" = 'slim' && test "${EXT_TYPE}" = 'standard'; then \
+    elif test "${PYTHON_IMG_TYPE}" = 'slim' && test "${EXT_TYPE}" != 'essential'; then \
     apt-get update -qq; apt-get install --no-install-recommends gcc -y; fi && \
     pip wheel -r /tmp/requirements.txt --wheel-dir /tmp/wheels
 
