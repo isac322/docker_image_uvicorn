@@ -7,6 +7,7 @@ ARG PYTHON_VER=3.9
 ARG PYTHON_IMG_TYPE=alpine
 ARG EXT_TYPE=essential
 COPY requirements-${EXT_TYPE}.in /tmp/requirements.txt
+RUN cat /etc/os-release
 RUN if test "${PYTHON_IMG_TYPE}" = 'alpine' && test "${EXT_TYPE}" != 'essential'; then \
     apk add --update gcc musl-dev make; \
     elif test "${PYTHON_IMG_TYPE}" = 'slim' && test "${EXT_TYPE}" != 'essential'; then \
