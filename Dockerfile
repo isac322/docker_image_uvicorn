@@ -11,7 +11,7 @@ RUN cat /etc/os-release
 RUN if test "${PYTHON_IMG_TYPE}" = 'alpine' && test "${EXT_TYPE}" != 'essential'; then \
     apk add --update gcc musl-dev make; \
     elif test "${PYTHON_IMG_TYPE}" = 'slim' && test "${EXT_TYPE}" != 'essential'; then \
-    apt-get update -qq; apt-get install --no-install-recommends linux-libc-dev gcc -y; fi && \
+    apt-get update -qq; apt-get install --no-install-recommends libc6-dev gcc -y; fi && \
     pip wheel -r /tmp/requirements.txt --wheel-dir /tmp/wheels
 
 FROM python:${PYTHON_VER}-${PYTHON_IMG_TYPE}
