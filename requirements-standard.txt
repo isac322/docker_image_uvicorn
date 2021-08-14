@@ -18,7 +18,7 @@ pyyaml==5.4.1
     # via uvicorn
 uvicorn[standard]==0.15.0
     # via -r requirements-standard.in
-uvloop==0.15.3
+uvloop==0.16.0
     # via uvicorn
 watchgod==0.7
     # via uvicorn
