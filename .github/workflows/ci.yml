@@ -24,13 +24,13 @@ jobs:
     needs: uvicorn_version
     env:
       PLATFORMS: linux/amd64,linux/arm64/v8,linux/386,linux/arm/v7
-      LATEST_PYVER: 3.9
+      LATEST_PYVER: 3.10
       BASE_EXT_TYPE: essential
       BASE_PYIMG_TYPE: alpine
       DOCKERHUB_USERNAME: isac322
     strategy:
       matrix:
-        python_ver: [3.6, 3.7, 3.8, 3.9]
+        python_ver: ["3.6", "3.7", "3.8", "3.9", "3.10"]
         python_img_type: [alpine, slim]
         extra_type: [performance, essential, standard]
     steps:
@@ -92,7 +92,6 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login to DockerHub
-        if: github.event_name != 'pull_request'
         uses: docker/login-action@v1
         with:
           username: ${{ env.DOCKERHUB_USERNAME }}
@@ -110,7 +109,7 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           cache-from: type=registry,ref=${{ env.DOCKERHUB_USERNAME }}/uvicorn:py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ matrix.extra_type }}
-          cache-to: type=inline
+          cache-to: type=registry,ref=${{ env.DOCKERHUB_USERNAME }}/uvicorn:_buildcache-py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ matrix.extra_type }},mode=max
       - name: Update repo description
         if: github.event_name != 'pull_request'
         uses: peter-evans/dockerhub-description@v2
