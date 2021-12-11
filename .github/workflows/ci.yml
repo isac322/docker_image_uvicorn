@@ -109,7 +109,7 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
           cache-from: type=registry,ref=${{ env.DOCKERHUB_USERNAME }}/uvicorn:py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ matrix.extra_type }}
-          cache-to: type=registry,ref=${{ env.DOCKERHUB_USERNAME }}/uvicorn:py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ matrix.extra_type }}_buildcache,mode=max
+          cache-to: type=registry,ref=${{ env.DOCKERHUB_USERNAME }}/uvicorn:_buildcache-py${{ matrix.python_ver }}-${{ matrix.python_img_type }}-${{ matrix.extra_type }},mode=max
       - name: Update repo description
         if: github.event_name != 'pull_request'
         uses: peter-evans/dockerhub-description@v2
