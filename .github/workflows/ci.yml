@@ -24,13 +24,13 @@ jobs:
     needs: uvicorn_version
     env:
       PLATFORMS: linux/amd64,linux/arm64/v8,linux/386,linux/arm/v7
-      LATEST_PYVER: 3.9
+      LATEST_PYVER: 3.10
       BASE_EXT_TYPE: essential
       BASE_PYIMG_TYPE: alpine
       DOCKERHUB_USERNAME: isac322
     strategy:
       matrix:
-        python_ver: [3.6, 3.7, 3.8, 3.9]
+        python_ver: [3.6, 3.7, 3.8, 3.9, 3.10]
         python_img_type: [alpine, slim]
         extra_type: [performance, essential, standard]
     steps:

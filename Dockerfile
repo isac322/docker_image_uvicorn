@@ -1,9 +1,9 @@
-ARG PYTHON_VER=3.9
+ARG PYTHON_VER=3.10
 ARG PYTHON_IMG_TYPE=alpine
 
 FROM python:${PYTHON_VER}-${PYTHON_IMG_TYPE} AS builder
 
-ARG PYTHON_VER=3.9
+ARG PYTHON_VER=3.10
 ARG PYTHON_IMG_TYPE=alpine
 ARG EXT_TYPE=essential
 COPY requirements-${EXT_TYPE}.in /tmp/requirements.txt
