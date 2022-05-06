@@ -86,7 +86,7 @@ jobs:
             org.opencontainers.image.version=${{ needs.uvicorn_version.outputs.version }}
       - name: Set up QEMU
         id: qemu
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v2
         with:
           platforms: ${{ env.PLATFORMS }}
       - name: Set up Docker Buildx
