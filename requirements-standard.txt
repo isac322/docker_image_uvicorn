@@ -4,23 +4,27 @@
 #
 #    pip-compile requirements-standard.in
 #
-asgiref==3.4.1
-    # via uvicorn
+anyio==3.6.1
+    # via watchfiles
 click==7.1.2
     # via uvicorn
 h11==0.12.0
     # via uvicorn
 httptools==0.4.0
     # via uvicorn
+idna==3.3
+    # via anyio
 python-dotenv==0.15.0
     # via uvicorn
 pyyaml==5.4.1
     # via uvicorn
-uvicorn[standard]==0.17.6
+sniffio==1.2.0
+    # via anyio
+uvicorn[standard]==0.18.1
     # via -r requirements-standard.in
 uvloop==0.16.0
     # via uvicorn
-watchgod==0.7
+watchfiles==0.15.0
     # via uvicorn
 websockets==10.1
     # via uvicorn
