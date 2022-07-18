@@ -4,11 +4,9 @@
 #
 #    pip-compile requirements-essential.in
 #
-asgiref==3.4.1
-    # via uvicorn
 click==7.1.2
     # via uvicorn
 h11==0.12.0
     # via uvicorn
-uvicorn==0.17.6
+uvicorn==0.18.2
     # via -r requirements-essential.in
