@@ -20,7 +20,7 @@ pyyaml==5.4.1
     # via uvicorn
 sniffio==1.2.0
     # via anyio
-uvicorn[standard]==0.18.2
+uvicorn[standard]==0.18.3
     # via -r requirements-standard.in
 uvloop==0.16.0
     # via uvicorn
