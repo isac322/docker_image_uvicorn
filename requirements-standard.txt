@@ -22,7 +22,7 @@ sniffio==1.2.0
     # via anyio
 uvicorn[standard]==0.18.2
     # via -r requirements-standard.in
-uvloop==0.16.0
+uvloop==0.17.0
     # via uvicorn
 watchfiles==0.15.0
     # via uvicorn
