@@ -1,3 +1,8 @@
+> # Deprecated
+> 
+> [uvloop provide musllinux wheel since 0.17.0](https://github.com/MagicStack/uvloop/pull/480)
+
+---
 # Docker image preinstalled the Python package `uvicorn`
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/isac322/uvicorn?logo=docker&style=flat-square)
